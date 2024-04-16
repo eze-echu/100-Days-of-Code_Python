@@ -1,0 +1,3 @@
+[submodule "Day-7"]
+	path = Day-7
+	url = git@github.com:ultra-slimer/Basic-Python-Hangman
