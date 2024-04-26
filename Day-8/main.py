@@ -8,7 +8,7 @@ def encrypt(text: str, key: int) -> str | BaseException:
         for letter in text.lower():
             if letter in alphabet:
                 value = alphabet.index(letter) + key
-                if value > len(alphabet):
+                if value >= len(alphabet):
                     value -= len(alphabet)
                 encoded_text += alphabet[value]
             else:
@@ -24,7 +24,7 @@ def decrypt(text: str, key: int) -> str | BaseException:
         for letter in text.lower():
             if letter in alphabet:
                 value = alphabet.index(letter) - key
-                if value < len(alphabet) * -1:
+                if value <= len(alphabet) * -1:
                     value += alphabet
                 decoded_text += alphabet[value]
             else:
