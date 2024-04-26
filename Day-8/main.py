@@ -8,7 +8,7 @@ def encrypt(text: str, key: int) -> str | BaseException:
         for letter in text.lower():
             if letter in alphabet:
                 value = alphabet.index(letter) + key
-                while value >= abs(len(alphabet)):
+                if value > len(alphabet):
                     value -= len(alphabet)
                 encoded_text += alphabet[value]
             else:
@@ -24,10 +24,8 @@ def decrypt(text: str, key: int) -> str | BaseException:
         for letter in text.lower():
             if letter in alphabet:
                 value = alphabet.index(letter) - key
-                while value <= 0:
-                    value += len(alphabet)
-                if value >= abs(len(alphabet)):
-                    value -= len(alphabet)
+                if value < len(alphabet) * -1:
+                    value += alphabet
                 decoded_text += alphabet[value]
             else:
                 decoded_text += letter
@@ -46,7 +44,7 @@ def menu():
                 text = input("Enter message\n")
                 key = input("Enter key \n")
                 if key.isnumeric():
-                    print(f"Your secret message is: {encrypt(text, int(key))}")
+                    print(f"Your secret message is: {encrypt(text, int(key) % len(alphabet))}")
                 else:
                     raise TypeError()
 
@@ -54,7 +52,7 @@ def menu():
                 text = input("Enter message\n")
                 key = input("Enter key \n")
                 if key.isnumeric():
-                    print(f"Your message is: {decrypt(text, int(key))}")
+                    print(f"Your message is: {decrypt(text, int(key) % len(alphabet))}")
                 else:
                     raise TypeError()
     else:
